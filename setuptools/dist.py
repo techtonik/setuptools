@@ -51,14 +51,17 @@ def get_metadata_version(self):
 
     if mv is None:
         if self.long_description_content_type or self.provides_extras:
+            # https://www.python.org/dev/peps/pep-0566/#summary-of-differences-from-pep-345
             mv = StrictVersion('2.1')
         elif (self.maintainer is not None or
               self.maintainer_email is not None or
               getattr(self, 'python_requires', None) is not None or
               self.project_urls):
+            # https://www.python.org/dev/peps/pep-0345/#summary-of-differences-from-pep-314
             mv = StrictVersion('1.2')
         elif (self.provides or self.requires or self.obsoletes or
                 self.classifiers or self.download_url):
+            # https://www.python.org/dev/peps/pep-0314/#summary-of-differences-from-pep-241
             mv = StrictVersion('1.1')
         else:
             mv = StrictVersion('1.0')
