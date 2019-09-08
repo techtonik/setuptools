@@ -16,7 +16,7 @@ from distutils.debug import DEBUG
 from distutils.fancy_getopt import translate_longopt
 import itertools
 
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from email import message_from_file
 
 from distutils.errors import (
@@ -334,6 +334,24 @@ def check_packages(dist, attr, value):
                 "WARNING: %r not a valid package name; please use only "
                 ".-separated package names in setup.py", pkgname
             )
+
+
+class Metadata(object):
+    FIELDS = [
+       # 1.0 - PEP 241
+       'Metadata-Version',
+       'Name',
+       'Version',
+       'Platform (multiple use)',
+       'Summary',
+       'Description (optional)',
+       'Keywords (optional)',
+       'Home-page (optional)',
+       'Author (optional)',
+       'Author-email',
+       'License',
+       'Require'
+    ]
 
 
 _Distribution = get_unpatched(distutils.core.Distribution)
